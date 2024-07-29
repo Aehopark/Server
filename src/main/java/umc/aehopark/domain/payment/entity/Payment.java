@@ -1,16 +1,21 @@
 package umc.aehopark.domain.payment.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import umc.aehopark.domain.payment.entity.enums.PaymentType;
+import umc.aehopark.domain.product.entity.ProductImage;
 import umc.aehopark.global.entity.BaseEntity;
 
 @Entity
@@ -25,4 +30,9 @@ public class Payment extends BaseEntity {
 
     @Column(nullable = false)
     private PaymentType type; // 결제수단 타입
+
+
+
+    @OneToMany(mappedBy = "Payment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payments = new ArrayList<>(); // 결제수단
 }

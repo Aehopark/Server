@@ -1,16 +1,24 @@
 package umc.aehopark.domain.product.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import umc.aehopark.domain.product.entity.enums.StoreStatus;
+import umc.aehopark.domain.user.entity.User;
 import umc.aehopark.global.entity.BaseEntity;
 
 @Entity
@@ -55,4 +63,14 @@ public class Store extends BaseEntity {
 
     @Column(nullable = false)
     private Boolean isApproved; // 판매처 승인 여부
+
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user; // 사용자
+
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>(); // 상품
 }
