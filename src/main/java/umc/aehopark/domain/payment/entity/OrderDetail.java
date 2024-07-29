@@ -1,11 +1,11 @@
-package umc.aehopark.domain.delivery.entity;
+package umc.aehopark.domain.payment.entity;
 
-import com.fasterxml.jackson.databind.ser.Serializers.Base;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigInteger;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,17 +18,14 @@ import umc.aehopark.global.entity.BaseEntity;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class place extends BaseEntity {
+public class OrderDetail extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 배송지 식별자
+    private Long id; // 주문 상세 식별자
 
     @Column(nullable = false)
-    private String address; // 배송지 주소
+    private Integer quantity; // 상품 수량
 
-    @Column(nullable = true)
-    private String detailAddress; // 배송지 상세주소
-
-    @Column(nullable = true)
-    private String request; // 배송지 요청사항
+    @Column(nullable = false)
+    private BigInteger price; // 상품 가격
 }
