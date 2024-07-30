@@ -33,6 +33,6 @@ public class Payment extends BaseEntity {
 
 
 
-    @OneToMany(mappedBy = "Payment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Payment> payments = new ArrayList<>(); // 결제수단
+    @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TotalOrder> totalOrders = new ArrayList<>(); // 결제수단
 }
