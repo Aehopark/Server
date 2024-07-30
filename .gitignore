@@ -360,3 +360,6 @@ gradle-app.setting
 # 혹시 모를 yml, properties 제거
 *.yml
 application.properties
+
+# .idea 폴더
+*.idea
