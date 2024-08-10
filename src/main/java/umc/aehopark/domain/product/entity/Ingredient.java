@@ -18,10 +18,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import umc.aehopark.global.entity.BaseEntity;
 
 @Entity
 @Getter
+@Setter
+
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -57,5 +60,9 @@ public class Ingredient extends BaseEntity {
 
 	@OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<IngredientImage> IngredientImages = new ArrayList<>(); // 식재료 이미지
+
+	public Ingredient(Long id) {
+		this.id = id;
+	}
 
 }
