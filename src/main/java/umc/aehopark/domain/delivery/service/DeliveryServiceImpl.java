@@ -12,11 +12,11 @@ import umc.aehopark.domain.delivery.dto.DeliveryResDto;
 import umc.aehopark.domain.delivery.entity.Place;
 import umc.aehopark.domain.delivery.repository.OrderDetailRepository;
 import umc.aehopark.domain.delivery.repository.PlaceRepository;
-import umc.aehopark.domain.delivery.repository.UserRepository;
 import umc.aehopark.domain.payment.entity.OrderDetail;
 import umc.aehopark.domain.user.entity.User;
 
 import java.util.List;
+import umc.aehopark.domain.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
