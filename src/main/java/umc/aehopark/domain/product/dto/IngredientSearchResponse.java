@@ -7,12 +7,14 @@ import umc.aehopark.domain.product.entity.Ingredient;
 @Getter
 @Setter
 public class IngredientSearchResponse {
+	private long ingredientId;
 	private String category;
 	private String ingredient;
 	private String imageUrl;
 	private int wishlistStatus;
 
 	public IngredientSearchResponse(Ingredient ingredient) {
+		this.ingredientId = ingredient.getId();
 		this.category = ingredient.getCategory().getName();
 		this.ingredient = ingredient.getName();
 		this.imageUrl =
