@@ -34,4 +34,5 @@ public class Price extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ingredient_id")
 	private Ingredient ingredient; // 식재료
+
 }

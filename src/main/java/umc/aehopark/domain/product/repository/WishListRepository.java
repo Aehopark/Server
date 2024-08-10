@@ -16,3 +16,4 @@ public interface WishListRepository extends JpaRepository<WishList, Long> {
 	boolean existsByUserAndIngredient(User user, Ingredient ingredient);
 }
 
+

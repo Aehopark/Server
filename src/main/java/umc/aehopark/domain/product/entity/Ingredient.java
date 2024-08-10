@@ -24,6 +24,7 @@ import umc.aehopark.global.entity.BaseEntity;
 @Entity
 @Getter
 @Setter
+
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

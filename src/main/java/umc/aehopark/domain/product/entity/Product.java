@@ -19,15 +19,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import umc.aehopark.domain.payment.entity.OrderDetail;
 import umc.aehopark.global.entity.BaseEntity;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Product extends BaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // 상품 식별자
@@ -63,4 +66,5 @@ public class Product extends BaseEntity {
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Basket> baskets = new ArrayList<>(); // 장바구니
+
 }

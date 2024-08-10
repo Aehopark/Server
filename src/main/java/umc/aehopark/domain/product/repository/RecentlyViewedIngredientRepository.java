@@ -17,4 +17,5 @@ public interface RecentlyViewedIngredientRepository extends JpaRepository<Recent
 	Optional<Ingredient> findByIngredient(Ingredient ingredient);
 
 	//Page<Ingredient> findRecentIngredientsByUserId(User user, Pageable pageRequest);
+
 }

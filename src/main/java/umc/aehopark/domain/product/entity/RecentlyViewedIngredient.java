@@ -21,6 +21,7 @@ import umc.aehopark.global.entity.BaseEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RecentlyViewedIngredient extends BaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // 최근 본 재료 식별자
@@ -32,4 +33,5 @@ public class RecentlyViewedIngredient extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ingredient_id")
 	private Ingredient ingredient; // 식재료
+
 }

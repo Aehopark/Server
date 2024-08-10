@@ -1,12 +1,19 @@
 package umc.aehopark.domain.delivery.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import umc.aehopark.domain.delivery.dto.DeliveryReqDto;
+import umc.aehopark.domain.delivery.dto.DeliveryResDto;
 
-public class DeliveryService {
+import java.util.List;
+
+public interface DeliveryService {
+
+    Page<DeliveryResDto.searchOrderDto> searchOrder(Long userId, Pageable adjustedPageable);
+    DeliveryResDto.addressAddDto addAddress(Long userId, DeliveryReqDto.addressAddDto reqDto);
+    List<DeliveryResDto.addressAddDto> searchAddress(Long userId);
+    Boolean deleteAddress(Long placeId);
 }
-
 

@@ -15,4 +15,5 @@ public interface PriceRepository extends JpaRepository<Price, Long> {
 
 	@Query("SELECT MAX(p.price) FROM Price p WHERE p.ingredient.id = :ingredientId")
 	BigInteger findMaxPriceByIngredientId(@Param("ingredientId") Long ingredientId);
+
 }
