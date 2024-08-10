@@ -14,7 +14,7 @@ import umc.aehopark.global.type.BaseCode;
 @JsonPropertyOrder({"message", "result"})
 public class ApiResponse<T> {
 
-    @JsonProperty("isSuccess")
+    @JsonProperty("message")
     private final String message;
     @JsonInclude(Include.NON_NULL)
     private T result;

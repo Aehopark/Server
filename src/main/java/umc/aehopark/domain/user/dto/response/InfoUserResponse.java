@@ -1,6 +1,13 @@
 package umc.aehopark.domain.user.dto.response;
 
-public class UserSearchResponse {
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Builder
+public class InfoUserResponse {
     private String userId;
     private String type; // UserType
     private String nickname;

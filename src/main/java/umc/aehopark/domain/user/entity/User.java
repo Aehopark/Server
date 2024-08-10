@@ -84,4 +84,25 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Basket> baskets = new ArrayList<>(); // 장바구니
+
+    public void setNickname(String nickname) {
+        if (nickname == null || nickname.trim().isEmpty()) {
+            throw new IllegalArgumentException("닉네임이 비어있습니다.");
+        }
+        this.nickname = nickname;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        if (imageUrl == null || imageUrl.trim().isEmpty()) {
+            throw new IllegalArgumentException("이미지 URL이 존재하지 않습니다.");
+        }
+        this.imageUrl = imageUrl;
+    }
+
+    public void setIsMarketing(Boolean isMarketing) {
+        if (isMarketing == null) {
+            throw new IllegalArgumentException("마케팅 여부가 비어있습니다.");
+        }
+        this.isMarketing = isMarketing;
+    }
 }
