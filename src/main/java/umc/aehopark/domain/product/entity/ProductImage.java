@@ -21,16 +21,14 @@ import umc.aehopark.global.entity.BaseEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ProductImage extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 상품 이미지 식별자
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; // 상품 이미지 식별자
 
-    @Column(nullable = false)
-    private String url; // 상품 이미지 URL
+	@Column(nullable = false)
+	private String url; // 상품 이미지 URL
 
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product; // 상품
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id")
+	private Product product; // 상품
 }
