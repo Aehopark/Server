@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -39,6 +40,7 @@ public class UserController {
 
     //  POST /reserve
     //  사전 예약 API
+    @CrossOrigin(origins="*")
     @PostMapping("/reserve")
     public ResponseEntity<Void> reserve(@RequestBody ReserveRequest reserveRequest) {
         try {
