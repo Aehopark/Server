@@ -150,10 +150,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Ingredient> searchProduct(String ingredientName, Integer page) {
 
-		ingredientRepository.findByName(ingredientName)
-			.orElseThrow(() -> new ProductHandler(ErrorStatus.INGREDIENT_NOT_FOUND));
+		Page<Ingredient> ingredientsPage = ingredientRepository.findAllByNameContaining(
+			PageRequest.of(page, 10), ingredientName);
 
-		return ingredientRepository.findAllByName(PageRequest.of(page, 10), ingredientName);
+		if (ingredientsPage.isEmpty()) {
+			throw new ProductHandler(ErrorStatus.INGREDIENT_NOT_FOUND);
+		}
+
+		return ingredientsPage;
 	}
 
 	// 카테고리별 모든 식재료 조회 + 페이징
@@ -173,10 +177,14 @@ public class ProductServiceImpl implements ProductService {
 		Category category = categoryRepository.findByName(categoryName)
 			.orElseThrow(() -> new ProductHandler(ErrorStatus.CATEGORY_NOT_FOUND));
 
-		ingredientRepository.findByName(ingredientName)
-			.orElseThrow(() -> new ProductHandler(ErrorStatus.INGREDIENT_NOT_FOUND));
+		Page<Ingredient> ingredientsPage = ingredientRepository.findAllByCategoryAndNameContaining(
+			PageRequest.of(page, 10), category, ingredientName);
 
-		return ingredientRepository.findAllByCategoryAndName(PageRequest.of(page, 10), category, ingredientName);
+		if (ingredientsPage.isEmpty()) {
+			throw new ProductHandler(ErrorStatus.INGREDIENT_NOT_FOUND);
+		}
+
+		return ingredientsPage;
 	}
 
 }

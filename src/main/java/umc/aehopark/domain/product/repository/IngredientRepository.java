@@ -15,9 +15,9 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
 	Optional<Ingredient> findByName(String name);
 
-	Page<Ingredient> findAllByName(PageRequest pageRequest, String name);
+	Page<Ingredient> findAllByNameContaining(PageRequest pageRequest, String name);
 
 	Page<Ingredient> findAllByCategory(PageRequest pageRequest, Category category);
 
-	Page<Ingredient> findAllByCategoryAndName(PageRequest pageRequest, Category category, String name);
+	Page<Ingredient> findAllByCategoryAndNameContaining(PageRequest pageRequest, Category category, String name);
 }
