@@ -11,7 +11,7 @@ import umc.aehopark.domain.product.service.IngredientServiceImpl;
 import umc.aehopark.global.common.ApiResponse;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/ingredient")
 public class IngredientController {
 
 	private final IngredientServiceImpl ingredientService;

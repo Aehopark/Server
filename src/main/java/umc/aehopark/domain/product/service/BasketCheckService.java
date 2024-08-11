@@ -5,7 +5,7 @@ import java.util.List;
 import umc.aehopark.domain.product.dto.BasketResponseDto;
 
 public interface BasketCheckService {
-	List<BasketResponseDto> searchBasket(long userId);
+	List<BasketResponseDto.ProductDto> searchBasket(Long userId);
 }
 
 

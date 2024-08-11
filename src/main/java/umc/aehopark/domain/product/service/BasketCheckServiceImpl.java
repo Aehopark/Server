@@ -6,36 +6,48 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import umc.aehopark.domain.product.dto.BasketResponseDto;
 import umc.aehopark.domain.product.entity.Basket;
+import umc.aehopark.domain.product.entity.Product;
 import umc.aehopark.domain.product.repository.BasketRepository;
+import umc.aehopark.domain.user.entity.User;
+import umc.aehopark.domain.user.repository.UserRepository;
+
 
 @Service
 @Slf4j
 public class BasketCheckServiceImpl implements BasketCheckService {
 
 	@Autowired
-	private final BasketRepository basketRepository;
+	private BasketRepository basketRepository;
 
-	public BasketCheckServiceImpl(BasketRepository basketRepository) {
-		this.basketRepository = basketRepository;
-	}
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
-	public List<BasketResponseDto> searchBasket(long userId) {
-		List<Basket> baskets = basketRepository.findByUserId(userId);
-		return baskets.stream().
-			map(this::convertToDto).
-			collect(Collectors.toList());
-	}
+	public List<BasketResponseDto.ProductDto> searchBasket(Long userId) {
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new RuntimeException("User not found"));
 
-	private BasketResponseDto convertToDto(Basket basket) {
-		return new BasketResponseDto(
-			basket.getId(),
-			basket.getUser().getId(),
-			basket.getProduct().getId(),
-			basket.getQuantity()
-		);
+		List<Basket> baskets = basketRepository.findByUser(user);
+
+		List<BasketResponseDto.ProductDto> productDtos = baskets.stream()
+			.map(basket -> {
+				Product product = basket.getProduct();
+				return new BasketResponseDto.ProductDto(
+					product.getId(),
+					product.getName(),
+					product.getPrice(),
+					product.getIngredient().getCategory().getName(),
+					product.getIngredient().getIngredientImages().isEmpty() ? null : product.getIngredient().getIngredientImages().get(0).getImageUrl(),
+					product.getIngredient().getWishLists().isEmpty() ? 0 : 1
+				);
+			})
+			.collect(Collectors.toList());
+
+		return productDtos;
 	}
 }

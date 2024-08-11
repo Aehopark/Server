@@ -3,6 +3,7 @@ package umc.aehopark.domain.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,22 +14,15 @@ import umc.aehopark.domain.product.service.BasketCheckService;
 import umc.aehopark.global.common.ApiResponse;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/product")
 public class BasketController {
 
-	private final BasketCheckService basketCheckService;
-
 	@Autowired
-	public BasketController(BasketCheckService basketCheckService) {
-		this.basketCheckService = basketCheckService;
-	}
+	private BasketCheckService basketService;
 
-	// 특정 사용자의 장바구니 상품 조회
-	@GetMapping("/{userId}/basket")
-	public ApiResponse<List<BasketResponseDto>> searchBasket(@PathVariable("userId") int userId) {
-		Long userIdInt = Long.valueOf(userId);
-		List<BasketResponseDto> basketList = basketCheckService.searchBasket(userId);
-		BasketResponseDto responseDto = new BasketResponseDto();
-		return ApiResponse.onSuccess(basketList);
+	@GetMapping("/good-ingredient/{userId}")
+	public ResponseEntity<ApiResponse<List<BasketResponseDto.ProductDto>>> searchBasket(@PathVariable Long userId) {
+		List<BasketResponseDto.ProductDto> response = basketService.searchBasket(userId);
+		return ResponseEntity.ok().body(new ApiResponse<>("장바구니 조회 성공", response));
 	}
 }
