@@ -1,5 +1,6 @@
 package umc.aehopark.domain.delivery.service;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,3 +16,4 @@ public interface DeliveryService {
     List<DeliveryResDto.addressAddDto> searchAddress(Long userId);
     Boolean deleteAddress(Long placeId);
 }
+
