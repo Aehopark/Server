@@ -16,11 +16,11 @@ import lombok.Setter;
 @Data
 public class BasketResponseDto {
 
-
 	@Getter
 	@Setter
 	@AllArgsConstructor
 	public static class ProductDto {
+		private Long basketId;
 		private Long productId;
 		private String name;
 		private BigInteger price;
@@ -28,6 +28,4 @@ public class BasketResponseDto {
 		private String imageUrl;
 		private int wishlistStatus;
 	}
-
-
 }
