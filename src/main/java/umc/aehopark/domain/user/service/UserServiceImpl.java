@@ -15,6 +15,7 @@ import umc.aehopark.domain.user.dto.response.KakaoLoginResponse;
 import umc.aehopark.domain.user.dto.response.RegisterUserResponse;
 import umc.aehopark.domain.user.entity.Reservation;
 import umc.aehopark.domain.user.entity.User;
+import umc.aehopark.domain.user.entity.enums.UserType;
 import umc.aehopark.domain.user.repository.ReservationRepository;
 import umc.aehopark.domain.user.repository.UserRepository;
 import umc.aehopark.global.exception.ConflictException;
@@ -74,7 +75,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterUserResponse register(RegisterUserRequest registerRequest) {
-        return null;
+        // 요청 유효성 검사
+        if (registerRequest.getProviderId() == null || registerRequest.getProvider() == null) {
+            throw new IllegalArgumentException("OAuth 정보가 비어있습니다.");
+        }
+
+        // 이미 해당 소셜 Id값으로 가입되어 있는지 확인
+        boolean exists = userRepository.existsByProviderId(registerRequest.getProviderId());
+        if (exists) {
+            throw new ConflictException("이미 가입된 OAuthId가 존재합니다.");
+        }
+
+        User user = User.builder()
+                .nickname(registerRequest.getNickname())
+                .address(registerRequest.getAddress())
+                .detailAddress(registerRequest.getDetailAddress())
+                .imageUrl(registerRequest.getImageUrl())
+                .isMarketing(registerRequest.getIsMarketing())
+                .provider(registerRequest.getProvider())
+                .providerId(registerRequest.getProviderId())
+                .type(UserType.CONSUMER) // Default: 소비자
+                .build();
+
+        // DB에 사용자 정보 저장
+        userRepository.save(user);
+
+        // Redis에서 refresh 토큰 생성 후 발급해주기
+        // 문제로 인한 코드 삭제
+        return RegisterUserResponse.builder()
+                .userId(String.valueOf(user.getId()))
+                .accessToken("access")
+                .refreshToken("refresh")
+                .build();
     }
 
     @Override

@@ -13,10 +13,10 @@ public class RegisterUserRequest {
     private String detailAddress; // 사용자 상세주소
     private String imageUrl; // 사용자 프로필 이미지 URL
     private Boolean isMarketing; // 사용자 마켓팅 여부
-    private OAuthProvider provider; // OAuthProvider
+    private String provider; // OAuthProvider
     private String providerId; // OAuthProvider의 사용자 ID
 
-    public RegisterUserRequest(String nickname, String address, String detailAddress, String imageUrl, Boolean isMarketing, OAuthProvider provider, String providerId) {
+    public RegisterUserRequest(String nickname, String address, String detailAddress, String imageUrl, Boolean isMarketing, String provider, String providerId) {
         this.nickname = nickname;
         this.address = address;
         this.detailAddress = detailAddress;
@@ -47,7 +47,11 @@ public class RegisterUserRequest {
     }
 
     public OAuthProvider getProvider() {
-        return provider;
+        if(provider.equals("APPLE")) {
+            return OAuthProvider.APPLE;
+        } else {
+            return OAuthProvider.KAKAO;
+        }
     }
 
     public String getProviderId() {

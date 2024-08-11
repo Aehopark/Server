@@ -37,9 +37,8 @@ public class UserController {
 //    private final KakaoService kakaoService;
 //    private final AppleService appleService;
 
-    // TODO: Implement the following endpoints:
     //  POST /reserve
-    //  사전예약
+    //  사전 예약 API
     @PostMapping("/reserve")
     public ResponseEntity<Void> reserve(@RequestBody ReserveRequest reserveRequest) {
         try {
@@ -53,7 +52,7 @@ public class UserController {
     }
 
     //  GET /checkNick
-    //  닉네임 중복 확인
+    //  닉네임 중복 확인 API
     @GetMapping("/checkNick")
     public ResponseEntity<ApiResponse<Boolean>> checkNick(@RequestParam String nickname) {
         try {
@@ -69,7 +68,7 @@ public class UserController {
     }
 
     //  POST /register
-    //  회원가입
+    //  회원가입 API
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<RegisterUserResponse>> register(@RequestBody RegisterUserRequest registerRequest) {
         try {
@@ -83,7 +82,7 @@ public class UserController {
     }
 //
 //    //  POST /kakao
-//    //  KAKAO 로그인
+//    //  KAKAO 로그인 API
 //    @PostMapping("/kakao")
 //    public ResponseEntity<ApiResponse<KakaoLoginResponse>> loginKakao(@RequestBody KakaoLoginRequest kakaoLoginRequest) {
 //        try {
@@ -97,7 +96,7 @@ public class UserController {
 //    }
 //
 //    //  POST /apple
-//    //  APPLE 로그인
+//    //  APPLE 로그인 API
 //    @PostMapping("/apple")
 //    public ResponseEntity<ApiResponse<AppleLoginResponse>> loginApple(@RequestBody AppleLoginRequest appleLoginRequest) {
 //        try {
@@ -111,7 +110,8 @@ public class UserController {
 //    }
 //
     //  DELETE /delete
-    //  회원탈퇴(Bearer Token)
+    //  회원탈퇴 API
+    //  Bearer Token 필요
     @DeleteMapping("/delete")
     public ResponseEntity<ApiResponse<Void>> delete(@RequestParam Long userId) {
         try {
@@ -125,8 +125,9 @@ public class UserController {
     }
 
     //  GET /info
-    //  내 회원정보 조회 (Bearer Token)
+    //  내 회원정보 조회 API
     //  자기자신만 조회가능
+    //  Bearer Token 필요
     @GetMapping("/info")
     public ResponseEntity<ApiResponse<InfoUserResponse>> info(@RequestParam Long userId) {
         try {
@@ -142,18 +143,8 @@ public class UserController {
     }
 
     //  PATCH /alterName
-    //  닉네임 변경 (Bearer Token)
-//    @PatchMapping("/alterName")
-//    public ResponseEntity<Void> alterName(@RequestParam Long userId, @RequestBody UserNameAlterRequest nickname) {
-//        try {
-//            userService.alterName(userId, nickname);
-//            return ResponseEntity.ok().build(); // 200 OK
-//        } catch (IllegalArgumentException e) { //  400 Bad Request - 클라이언트 요청 오류
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        } catch (NotFoundException e) { //  404 Not Found - 조회되지 않을 경우
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//    }
+    //  닉네임 변경 API
+    //  Bearer Token 필요
     @PostMapping("/alterName")
     public ResponseEntity<ApiResponse<Void>> alterName(@RequestBody UserNameAlterRequest request, @RequestParam Long userId) {
         try {
@@ -167,7 +158,8 @@ public class UserController {
     }
 
     //  PATCH /alterUserImage
-    //  프로필 이미지 변경 (Bearer Token)
+    //  프로필 이미지 변경
+    //  Bearer Token 필요
     @PostMapping("/alterUserImage")
     public ResponseEntity<ApiResponse<Void>> alterUserImage(@RequestBody UserImageAlterRequest imageUrl, @RequestParam Long userId) {
         try {
@@ -181,7 +173,8 @@ public class UserController {
     }
 
     //  POST /isMarketing
-    //  마케팅 수신 동의 (Bearer Token)
+    //  마케팅 수신 동의 API
+    //  Bearer Token 필요
     @PostMapping("/isMarketing")
     public ResponseEntity<ApiResponse<Void>> isMarketing(@RequestBody isMarketingRequest isMarketing, @RequestParam Long userId) {
         try {
