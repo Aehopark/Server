@@ -8,7 +8,7 @@ import umc.aehopark.domain.product.entity.Ingredient;
 
 public interface ProductService {
 	// 판매 상품 등록
-	public ProductResponse registerProduct(ProductRequest request);
+	public ProductResponse registerProduct(long user_id, ProductRequest request);
 
 	// 판매 상품 변경
 	public ProductResponse alterProduct(Long productId, ProductRequest request);

@@ -15,11 +15,14 @@ import umc.aehopark.domain.product.entity.Category;
 import umc.aehopark.domain.product.entity.Ingredient;
 import umc.aehopark.domain.product.entity.Product;
 import umc.aehopark.domain.product.entity.ProductImage;
+import umc.aehopark.domain.product.entity.Store;
 import umc.aehopark.domain.product.handler.ProductHandler;
 import umc.aehopark.domain.product.repository.CategoryRepository;
 import umc.aehopark.domain.product.repository.IngredientRepository;
 import umc.aehopark.domain.product.repository.ProductImageRepository;
 import umc.aehopark.domain.product.repository.ProductRepository;
+import umc.aehopark.domain.product.repository.StoreRepository;
+import umc.aehopark.domain.user.entity.User;
 import umc.aehopark.domain.user.repository.UserRepository;
 import umc.aehopark.global.status.ErrorStatus;
 
@@ -29,6 +32,7 @@ import umc.aehopark.global.status.ErrorStatus;
 public class ProductServiceImpl implements ProductService {
 
 	private final UserRepository userRepository;
+	private final StoreRepository storeRepository;
 	private final ProductRepository productRepository;
 	private final IngredientRepository ingredientRepository;
 	private final CategoryRepository categoryRepository;
@@ -37,11 +41,11 @@ public class ProductServiceImpl implements ProductService {
 	// 판매 상품 등록
 	@Override
 	@Transactional
-	public ProductResponse registerProduct(ProductRequest request) {
+	public ProductResponse registerProduct(long userId, ProductRequest request) {
 
-		// 유저 아이디 존재 여부
-		// User user = userRepository.findById(request.userId)
-		// 	.orElseThrow(() -> new ProductHandler(ErrorStatus.USER_NOT_FOUND));
+		//유저 아이디 존재 여부
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new ProductHandler(ErrorStatus.USER_NOT_FOUND));
 
 		// 카테고리 존재 여부
 		if (!categoryRepository.existsByName(request.getCategory())) {
@@ -52,6 +56,9 @@ public class ProductServiceImpl implements ProductService {
 		Ingredient ingredient = ingredientRepository.findByName(request.getIngredientName())
 			.orElseThrow(() -> new ProductHandler(ErrorStatus.INGREDIENT_NOT_FOUND));
 
+		Store store = storeRepository.findByUser(user)
+			.orElseThrow(() -> new ProductHandler(ErrorStatus.STORE_NOT_FOUND));
+
 		Product newProduct = Product.builder()
 			.name(request.getName())
 			.content(request.getContents())
@@ -59,6 +66,7 @@ public class ProductServiceImpl implements ProductService {
 			.stock(0) // 기본 재고 설정
 			.deliveryFee(0) // 기본 배송비 설정
 			.ingredient(ingredient)
+			.store(store)
 			.build();
 
 		Product savedProduct = productRepository.save(newProduct);

@@ -27,6 +27,7 @@ public enum ErrorStatus implements BaseErrorCode {
 	PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "상품이 없습니다."),
 	INGREDIENT_NOT_FOUND(HttpStatus.BAD_REQUEST, "검색한 식재료가 없습니다."),
 	CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "검색한 카테고리가 없습니다."),
+	STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "가게가 없습니다."),
 
 	FAIL_PARSE_APPLE_IDENTITY_TOKEN(HttpStatus.BAD_REQUEST, "Apple Identity Token 헤더 파싱을 실패하였습니다."),
 	FAIL_PARSE_CLAIM(HttpStatus.BAD_REQUEST, "Claim을 파싱하는데 실패하였습니다."),

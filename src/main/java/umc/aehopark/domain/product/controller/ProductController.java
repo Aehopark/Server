@@ -41,9 +41,10 @@ public class ProductController {
 	@ResponseBody
 	@PostMapping("/register")
 	public ApiResponse<?> registerProduct(
+		@RequestParam long user_id,
 		@Validated @RequestBody ProductRequest request) {
 
-		ProductResponse response = productService.registerProduct(request);
+		ProductResponse response = productService.registerProduct(user_id, request);
 
 		return ApiResponse.onSuccess(response);
 	}
